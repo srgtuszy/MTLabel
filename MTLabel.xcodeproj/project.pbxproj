@@ -1,0 +1,293 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		147737CE1391B7C100BCB59A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 147737CD1391B7C100BCB59A /* UIKit.framework */; };
+		147737D01391B7C100BCB59A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 147737CF1391B7C100BCB59A /* Foundation.framework */; };
+		147737D21391B7C100BCB59A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 147737D11391B7C100BCB59A /* CoreGraphics.framework */; };
+		147737D81391B7C200BCB59A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 147737D61391B7C200BCB59A /* InfoPlist.strings */; };
+		147737DB1391B7C200BCB59A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 147737DA1391B7C200BCB59A /* main.m */; };
+		147737DE1391B7C200BCB59A /* MTLabelAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 147737DD1391B7C200BCB59A /* MTLabelAppDelegate.m */; };
+		147737E11391B7C200BCB59A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147737DF1391B7C200BCB59A /* MainWindow.xib */; };
+		147737E41391B7C200BCB59A /* MTLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147737E31391B7C200BCB59A /* MTLabelViewController.m */; };
+		147737E71391B7C200BCB59A /* MTLabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147737E51391B7C200BCB59A /* MTLabelViewController.xib */; };
+		147737EF1391B7D400BCB59A /* MTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147737EE1391B7D400BCB59A /* MTLabel.m */; };
+		147737F11391B86600BCB59A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 147737F01391B86600BCB59A /* CoreText.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		147737C91391B7C100BCB59A /* MTLabel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MTLabel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		147737CD1391B7C100BCB59A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		147737CF1391B7C100BCB59A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		147737D11391B7C100BCB59A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		147737D51391B7C200BCB59A /* MTLabel-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MTLabel-Info.plist"; sourceTree = "<group>"; };
+		147737D71391B7C200BCB59A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		147737D91391B7C200BCB59A /* MTLabel-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MTLabel-Prefix.pch"; sourceTree = "<group>"; };
+		147737DA1391B7C200BCB59A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		147737DC1391B7C200BCB59A /* MTLabelAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTLabelAppDelegate.h; sourceTree = "<group>"; };
+		147737DD1391B7C200BCB59A /* MTLabelAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTLabelAppDelegate.m; sourceTree = "<group>"; };
+		147737E01391B7C200BCB59A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		147737E21391B7C200BCB59A /* MTLabelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTLabelViewController.h; sourceTree = "<group>"; };
+		147737E31391B7C200BCB59A /* MTLabelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTLabelViewController.m; sourceTree = "<group>"; };
+		147737E61391B7C200BCB59A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MTLabelViewController.xib; sourceTree = "<group>"; };
+		147737ED1391B7D400BCB59A /* MTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLabel.h; sourceTree = "<group>"; };
+		147737EE1391B7D400BCB59A /* MTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLabel.m; sourceTree = "<group>"; };
+		147737F01391B86600BCB59A /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		147737C61391B7C100BCB59A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				147737F11391B86600BCB59A /* CoreText.framework in Frameworks */,
+				147737CE1391B7C100BCB59A /* UIKit.framework in Frameworks */,
+				147737D01391B7C100BCB59A /* Foundation.framework in Frameworks */,
+				147737D21391B7C100BCB59A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		147737BE1391B7C100BCB59A = {
+			isa = PBXGroup;
+			children = (
+				147737D31391B7C100BCB59A /* MTLabel */,
+				147737CC1391B7C100BCB59A /* Frameworks */,
+				147737CA1391B7C100BCB59A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		147737CA1391B7C100BCB59A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				147737C91391B7C100BCB59A /* MTLabel.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		147737CC1391B7C100BCB59A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				147737F01391B86600BCB59A /* CoreText.framework */,
+				147737CD1391B7C100BCB59A /* UIKit.framework */,
+				147737CF1391B7C100BCB59A /* Foundation.framework */,
+				147737D11391B7C100BCB59A /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		147737D31391B7C100BCB59A /* MTLabel */ = {
+			isa = PBXGroup;
+			children = (
+				147737ED1391B7D400BCB59A /* MTLabel.h */,
+				147737EE1391B7D400BCB59A /* MTLabel.m */,
+				147737DC1391B7C200BCB59A /* MTLabelAppDelegate.h */,
+				147737DD1391B7C200BCB59A /* MTLabelAppDelegate.m */,
+				147737DF1391B7C200BCB59A /* MainWindow.xib */,
+				147737E21391B7C200BCB59A /* MTLabelViewController.h */,
+				147737E31391B7C200BCB59A /* MTLabelViewController.m */,
+				147737E51391B7C200BCB59A /* MTLabelViewController.xib */,
+				147737D41391B7C200BCB59A /* Supporting Files */,
+			);
+			path = MTLabel;
+			sourceTree = "<group>";
+		};
+		147737D41391B7C200BCB59A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				147737D51391B7C200BCB59A /* MTLabel-Info.plist */,
+				147737D61391B7C200BCB59A /* InfoPlist.strings */,
+				147737D91391B7C200BCB59A /* MTLabel-Prefix.pch */,
+				147737DA1391B7C200BCB59A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		147737C81391B7C100BCB59A /* MTLabel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 147737EA1391B7C200BCB59A /* Build configuration list for PBXNativeTarget "MTLabel" */;
+			buildPhases = (
+				147737C51391B7C100BCB59A /* Sources */,
+				147737C61391B7C100BCB59A /* Frameworks */,
+				147737C71391B7C100BCB59A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MTLabel;
+			productName = MTLabel;
+			productReference = 147737C91391B7C100BCB59A /* MTLabel.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		147737C01391B7C100BCB59A /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 147737C31391B7C100BCB59A /* Build configuration list for PBXProject "MTLabel" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 147737BE1391B7C100BCB59A;
+			productRefGroup = 147737CA1391B7C100BCB59A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				147737C81391B7C100BCB59A /* MTLabel */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		147737C71391B7C100BCB59A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				147737D81391B7C200BCB59A /* InfoPlist.strings in Resources */,
+				147737E11391B7C200BCB59A /* MainWindow.xib in Resources */,
+				147737E71391B7C200BCB59A /* MTLabelViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		147737C51391B7C100BCB59A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				147737DB1391B7C200BCB59A /* main.m in Sources */,
+				147737DE1391B7C200BCB59A /* MTLabelAppDelegate.m in Sources */,
+				147737E41391B7C200BCB59A /* MTLabelViewController.m in Sources */,
+				147737EF1391B7D400BCB59A /* MTLabel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		147737D61391B7C200BCB59A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				147737D71391B7C200BCB59A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		147737DF1391B7C200BCB59A /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				147737E01391B7C200BCB59A /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		147737E51391B7C200BCB59A /* MTLabelViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				147737E61391B7C200BCB59A /* en */,
+			);
+			name = MTLabelViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		147737E81391B7C200BCB59A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		147737E91391B7C200BCB59A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		147737EB1391B7C200BCB59A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MTLabel/MTLabel-Prefix.pch";
+				INFOPLIST_FILE = "MTLabel/MTLabel-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		147737EC1391B7C200BCB59A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MTLabel/MTLabel-Prefix.pch";
+				INFOPLIST_FILE = "MTLabel/MTLabel-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		147737C31391B7C100BCB59A /* Build configuration list for PBXProject "MTLabel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				147737E81391B7C200BCB59A /* Debug */,
+				147737E91391B7C200BCB59A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		147737EA1391B7C200BCB59A /* Build configuration list for PBXNativeTarget "MTLabel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				147737EB1391B7C200BCB59A /* Debug */,
+				147737EC1391B7C200BCB59A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 147737C01391B7C100BCB59A /* Project object */;
+}
