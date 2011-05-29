@@ -715,9 +715,9 @@
     s = 0;
 }</string>
 		</dict>
-		<real>328321617.20278603</real>
-		<string>{3845, 1082}</string>
-		<string>{4480, 0}</string>
+		<real>328321782.16906101</real>
+		<string>{4152, 988}</string>
+		<string>{4813, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -763,9 +763,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>328321501.68777299</real>
-		<string>{714, 1234}</string>
-		<string>{1478, 0}</string>
+		<real>328321852.11847198</real>
+		<string>{714, 1212}</string>
+		<string>{1168, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -907,9 +907,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>328321527.31519502</real>
-		<string>{516, 1699}</string>
-		<string>{1802, 35}</string>
+		<real>328321708.83186901</real>
+		<string>{516, 1743}</string>
+		<string>{1838, 108}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1827,7 +1827,7 @@
 				<integer>177</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>328321301.84157097</real>
+			<real>328321836.42141801</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -1838,7 +1838,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 2:21 AM</string>
+		<string>Today at 2:30 AM</string>
 		<integer>106</integer>
 		<dict>
 			<key>$class</key>
@@ -1913,7 +1913,7 @@
 				<integer>183</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabel.m</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1931,7 +1931,7 @@
 				<integer>185</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelAppDelegate.h</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabel.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1967,7 +1967,7 @@
 				<integer>189</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.m</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelAppDelegate.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2207,7 +2207,7 @@
 		<string>IDEWorkspaceTabControllerDesignAreaSplitView</string>
 		<string>IDEShowUtilities</string>
 		<string>AssistantEditorsLayout</string>
-		<string>MTLabel.m</string>
+		<string>MTLabelViewController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2842,7 +2842,7 @@
 				<integer>274</integer>
 			</dict>
 		</dict>
-		<string>MTLabel.m</string>
+		<string>MTLabelViewController.m</string>
 		<dict>
 			<key>$classes</key>
 			<array>
@@ -2901,7 +2901,7 @@
 				<integer>23</integer>
 			</dict>
 			<key>NS.string</key>
-			<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabel.m</string>
+			<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.m</string>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -2931,19 +2931,15 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>56</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>57</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>58</integer>
+					<integer>59</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>59</integer>
+					<integer>58</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -2954,15 +2950,7 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>61</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>284</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>15</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -2970,14 +2958,18 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>15</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>286</integer>
 				</dict>
 			</array>
 		</dict>
-		<real>328321617.20499903</real>
-		<string>{3845, 1082}</string>
-		<string>{4480, 0}</string>
-		<string>-initWithText:</string>
+		<real>328321852.12165701</real>
+		<string>{714, 1212}</string>
+		<string>{1168, 0}</string>
+		<string>-viewDidLoad</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
 			<key>$class</key>
@@ -2996,7 +2988,7 @@
 				<integer>290</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabel.m</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>

@@ -246,6 +246,26 @@
 }
 
 
++(id)label {
+
+    return [[[MTLabel alloc] init] autorelease];
+
+}
+
++(id)labelWithFrame:(CGRect)frame andText:(NSString *)text {
+    
+    return [[[MTLabel alloc] initWithFrame:frame andText:text] autorelease];
+    
+}
+
+
++(id)labelWithText:(NSString *)text {
+    
+    return [[[MTLabel alloc] initWithText:text] autorelease];
+    
+}
+
+
 #pragma mark - Resizing
 
 -(void)resizeToFitText {

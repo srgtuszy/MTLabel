@@ -41,9 +41,10 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    MTLabel *label1 = [[[MTLabel alloc] initWithFrame:CGRectMake(20, 20, 250, 200) 
-                                              andText:@"This is \na label with \ncustom line height"] autorelease];
+    
+    MTLabel *label1 = [MTLabel labelWithFrame:CGRectMake(20, 20, 250, 200) 
+                                      andText:@"This is \na label with \ncustom line height"];
+    
     [label1 setFont:[UIFont boldSystemFontOfSize:14]];
     [label1 setTextAlignment:MTLabelTextAlignmentLeft];
     [label1 setLineHeight:22];

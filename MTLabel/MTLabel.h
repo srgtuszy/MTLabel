@@ -50,6 +50,9 @@ typedef enum {
 
 -(id)initWithFrame:(CGRect)frame andText:(NSString *)text;
 -(id)initWithText:(NSString *)text;
++(id)label;
++(id)labelWithFrame:(CGRect)frame andText:(NSString *)text;
++(id)labelWithText:(NSString *)text;
 -(void)setText:(NSString *)text;
 -(void)setLineHeight:(CGFloat)lineHeight;
 -(void)setNumberOfLines:(int)numberOfLines;
