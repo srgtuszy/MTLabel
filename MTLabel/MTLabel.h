@@ -22,7 +22,8 @@ typedef enum {
     
     MTLabelTextAlignmentLeft,
     MTLabelTextAlignmentCenter,
-    MTLabelTextAlignmentRight
+    MTLabelTextAlignmentRight,
+    MTLabelTextAlignmentJustify
     
 } MTLabelTextAlignment;
 
@@ -45,6 +46,7 @@ typedef enum {
 @property (nonatomic, retain, setter = setFontColor:, getter = fontColor) UIColor *_fontColor;
 @property (nonatomic, retain, setter = setFont:, getter = font) UIFont *_font;
 @property (nonatomic, readwrite, setter = setLimitToNumberOfLines:, getter = limitToNumberOfLines) BOOL _limitToNumberOfLines;
+@property (nonatomic, readwrite, setter = setTextAlignment:, getter = textAlignment) MTLabelTextAlignment _textAlignment;
 
 -(id)initWithFrame:(CGRect)frame andText:(NSString *)text;
 -(void)setText:(NSString *)text;
@@ -53,14 +55,15 @@ typedef enum {
 -(void)setFont:(UIFont *)font;
 -(void)setFontColor:(UIColor *)fontColor;
 -(void)setLimitToNumberOfLines:(BOOL)limitToNumberOfLines;
+-(void)setTextAlignment:(MTLabelTextAlignment)textAlignment;
 -(void)resizeToFitText;
 -(NSString *)text;
-
 -(CGFloat)lineHeight;
 -(UIColor *)fontColor;
 -(UIFont *)font;
 -(int)numberOfLines;
 -(BOOL)limitToNumberOfLines;
+-(MTLabelTextAlignment)textAlignment;
 
 
 @end

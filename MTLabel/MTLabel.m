@@ -34,6 +34,7 @@
 @synthesize _font;
 @synthesize _fontColor;
 @synthesize _limitToNumberOfLines;
+@synthesize _textAlignment;
 
 #pragma mark - Setters
 
@@ -124,6 +125,18 @@
 }
 
 
+-(void)setTextAlignment:(MTLabelTextAlignment)textAlignment {
+    
+    if (_textAlignment != textAlignment) {
+        
+        _textAlignment = textAlignment;
+        [self setNeedsDisplay];
+        
+    }
+    
+}
+
+
 #pragma mark - Getters
 
 
@@ -159,6 +172,10 @@
     return _limitToNumberOfLines;
 }
 
+-(MTLabelTextAlignment)textAlignment {
+    
+    return _textAlignment;
+}
 
 #pragma mark - Object lifecycle
 
@@ -171,6 +188,7 @@
         
         self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
         self._lineHeight = _font.lineHeight;
+        self._textAlignment = MTLabelTextAlignmentLeft;
         
     }
     
@@ -186,6 +204,7 @@
         
         self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
         self._lineHeight = _font.lineHeight;
+        self._textAlignment = MTLabelTextAlignmentLeft;
         
     }
     
@@ -202,6 +221,7 @@
         self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
         self._lineHeight = _font.lineHeight;
         self._text = text;
+        self._textAlignment = MTLabelTextAlignmentLeft;
                 
     }
     return self;
@@ -277,8 +297,47 @@
         CTLineRef line = CTTypesetterCreateLine(typeSetter, 
                                                 CFRangeMake(currentIndex, lineBreakIndex));
         
+        double whiteSpace = CTLineGetTrailingWhitespaceWidth(line);
+        CGFloat x;
+        
+        switch (_textAlignment) {
+            
+            case MTLabelTextAlignmentLeft: {
+             
+                double offset = CTLineGetPenOffsetForFlush(line, 0, rect.size.width);
+                x = offset;
+                
+            }
+                
+                break;
+                
+            case MTLabelTextAlignmentCenter: {
+                
+                double offset = CTLineGetPenOffsetForFlush(line, 0.5, rect.size.width);
+                x = offset;
+            }
+                break;
+                
+            case MTLabelTextAlignmentRight: {
+                
+                double offset = CTLineGetPenOffsetForFlush(line, 2, rect.size.width);
+                x = offset;
+                
+            }
+                
+                x = whiteSpace;
+                
+                break;
+                
+            default:
+                
+                x = 0;
+                
+                break;
+        }
+        
         //Setup the line position
-        CGContextSetTextPosition(context, 0, y);
+        CGContextSetTextPosition(context, x, y);
         
         CTLineDraw(line, context);
         

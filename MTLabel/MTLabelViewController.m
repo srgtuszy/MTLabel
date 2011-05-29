@@ -18,6 +18,7 @@
 
 #import "MTLabelViewController.h"
 #import "MTLabel.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation MTLabelViewController
 
@@ -41,10 +42,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    MTLabel *label1 = [[[MTLabel alloc] initWithFrame:CGRectMake(20, 20, 320, 200) 
+    MTLabel *label1 = [[[MTLabel alloc] initWithFrame:CGRectMake(20, 20, 250, 200) 
                                               andText:@"This is \na label with \ncustom line height"] autorelease];
     [label1 setFont:[UIFont boldSystemFontOfSize:14]];
+    [label1 setTextAlignment:MTLabelTextAlignmentLeft];
     [label1 setLineHeight:22];
+    [[label1 layer] setBorderWidth:3];
     
     [self.view addSubview:label1];
 
