@@ -43,12 +43,11 @@
     [super viewDidLoad];
     
     MTLabel *label1 = [MTLabel labelWithFrame:CGRectMake(20, 20, 250, 200) 
-                                      andText:@"This is \na label with \ncustom line height"];
+                                      andText:@"This is a label with custom line height"];
     
     [label1 setFont:[UIFont boldSystemFontOfSize:14]];
-    [label1 setTextAlignment:MTLabelTextAlignmentLeft];
-    [label1 setLineHeight:22];
-    [[label1 layer] setBorderWidth:3];
+    [label1 setTextAlignment:MTLabelTextAlignmentCenter];
+    [label1 setLineHeight:25];
     
     [self.view addSubview:label1];
 

@@ -335,7 +335,6 @@
         CTLineRef line = CTTypesetterCreateLine(typeSetter, 
                                                 CFRangeMake(currentIndex, lineBreakIndex));
         
-        double whiteSpace = CTLineGetTrailingWhitespaceWidth(line);
         CGFloat x;
         
         switch (_textAlignment) {
@@ -362,9 +361,7 @@
                 x = offset;
                 
             }
-                
-                x = whiteSpace;
-                
+                                
                 break;
                 
             default:
