@@ -228,6 +228,24 @@
 }
 
 
+-(id)initWithText:(NSString *)text {
+    
+    self = [super init];
+    
+    if (self) {
+        
+        self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
+        self._lineHeight = _font.lineHeight;
+        self._text = text;
+        self._textAlignment = MTLabelTextAlignmentLeft;
+        
+    }
+    
+    return self;
+    
+}
+
+
 #pragma mark - Resizing
 
 -(void)resizeToFitText {

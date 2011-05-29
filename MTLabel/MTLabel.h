@@ -49,6 +49,7 @@ typedef enum {
 @property (nonatomic, readwrite, setter = setTextAlignment:, getter = textAlignment) MTLabelTextAlignment _textAlignment;
 
 -(id)initWithFrame:(CGRect)frame andText:(NSString *)text;
+-(id)initWithText:(NSString *)text;
 -(void)setText:(NSString *)text;
 -(void)setLineHeight:(CGFloat)lineHeight;
 -(void)setNumberOfLines:(int)numberOfLines;

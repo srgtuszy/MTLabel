@@ -715,9 +715,9 @@
     s = 0;
 }</string>
 		</dict>
-		<real>328321318.257653</real>
-		<string>{6574, 1546}</string>
-		<string>{7772, 6}</string>
+		<real>328321617.20278603</real>
+		<string>{3845, 1082}</string>
+		<string>{4480, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -763,7 +763,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>328321278.59706199</real>
+		<real>328321501.68777299</real>
 		<string>{714, 1234}</string>
 		<string>{1478, 0}</string>
 		<dict>
@@ -811,7 +811,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>328318409.34193403</real>
+		<real>328321528.13339901</real>
 		<string>{0, 892}</string>
 		<string>{621, 0}</string>
 		<dict>
@@ -907,9 +907,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>328321225.16188502</real>
-		<string>{0, 1742}</string>
-		<string>{789, 0}</string>
+		<real>328321527.31519502</real>
+		<string>{516, 1699}</string>
+		<string>{1802, 35}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1892,7 +1892,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>195</integer>
+					<integer>196</integer>
 				</dict>
 			</array>
 		</dict>
@@ -1931,7 +1931,7 @@
 				<integer>185</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.m</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelAppDelegate.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1949,7 +1949,7 @@
 				<integer>187</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/en.lproj/MTLabelViewController.xib</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabel.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1967,7 +1967,7 @@
 				<integer>189</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelAppDelegate.m</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1985,7 +1985,7 @@
 				<integer>191</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.h</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/en.lproj/MTLabelViewController.xib</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2003,7 +2003,25 @@
 				<integer>193</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabel.h</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelAppDelegate.m</string>
+		<dict>
+			<key>$class</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>24</integer>
+			</dict>
+			<key>NS.base</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>0</integer>
+			</dict>
+			<key>NS.relative</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>195</integer>
+			</dict>
+		</dict>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2021,24 +2039,6 @@
 				<integer>109</integer>
 			</dict>
 		</dict>
-		<dict>
-			<key>$class</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>24</integer>
-			</dict>
-			<key>NS.base</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>0</integer>
-			</dict>
-			<key>NS.relative</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>196</integer>
-			</dict>
-		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelAppDelegate.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2974,10 +2974,10 @@
 				</dict>
 			</array>
 		</dict>
-		<real>328321318.25976801</real>
-		<string>{6574, 1546}</string>
-		<string>{7772, 6}</string>
-		<string>-drawRect:</string>
+		<real>328321617.20499903</real>
+		<string>{3845, 1082}</string>
+		<string>{4480, 0}</string>
+		<string>-initWithText:</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
 			<key>$class</key>
