@@ -889,9 +889,9 @@
     s = 0;
 }</string>
 		</dict>
-		<real>328360319.41621602</real>
+		<real>328360468.94053</real>
 		<false/>
-		<string>{8905, 1333}</string>
+		<string>{8905, 1294}</string>
 		<string>{9832, 0}</string>
 		<dict>
 			<key>$class</key>
@@ -1082,8 +1082,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>328360430.186423</real>
-		<string>{839, 1900}</string>
+		<real>328360473.95027399</real>
+		<string>{532, 1844}</string>
 		<string>{1656, 0}</string>
 		<dict>
 			<key>$class</key>
@@ -2101,7 +2101,7 @@
 				<integer>196</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.m</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabel.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -2119,7 +2119,7 @@
 				<integer>198</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabel.m</string>
+		<string>file://localhost/Users/michaltuszynski/Documents/MTLabel/MTLabel/MTLabelViewController.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -3153,8 +3153,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>328360430.18854803</real>
-		<string>{839, 1900}</string>
+		<real>328360473.95473403</real>
+		<string>{532, 1844}</string>
 		<string>{1656, 0}</string>
 		<string>_limitToNumberOfLines</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
