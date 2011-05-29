@@ -49,6 +49,19 @@
     [label1 setLineHeight:25];
     
     [self.view addSubview:label1];
+    
+    MTLabel *label2 = [MTLabel labelWithFrame:CGRectMake(20, 150, 250, 70) 
+                                      andText:@"This is a justified text example, with normal line height (from UIFont)"];
+    [label2 setTextAlignment:MTLabelTextAlignmentJustify];
+    [label2 setFont:[UIFont boldSystemFontOfSize:15]];
+    [self.view addSubview:label2];
+    
+    MTLabel *label3 = [MTLabel labelWithFrame:CGRectMake(20, 240, 250, 1) 
+                                      andText:@"This label was resized to fit text inside it"];
+    [label3 setTextAlignment:MTLabelTextAlignmentCenter];
+    [label3 setFont:[UIFont systemFontOfSize:12]];
+    [label3 setResizeToFitText:YES];
+    [self.view addSubview:label3];
 
 }
 

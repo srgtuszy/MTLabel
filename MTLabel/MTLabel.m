@@ -30,10 +30,11 @@
 @implementation MTLabel
 
 @synthesize _text;
-@synthesize _numberOfLines, _lineHeight;
+@synthesize _lineHeight, _textHeight;
+@synthesize _numberOfLines;
 @synthesize _font;
 @synthesize _fontColor;
-@synthesize _limitToNumberOfLines;
+@synthesize _limitToNumberOfLines, _shouldResizeToFit;
 @synthesize _textAlignment;
 
 #pragma mark - Setters
@@ -117,9 +118,20 @@
     if (_limitToNumberOfLines != limitToNumberOfLines) {
         
         _limitToNumberOfLines = limitToNumberOfLines;
-        
         [self setNeedsDisplay];
         
+    }
+    
+}
+
+
+-(void)setResizeToFitText:(BOOL)resizeToFitText {
+    
+    
+    if (_shouldResizeToFit != resizeToFitText) {
+        
+        _shouldResizeToFit = resizeToFitText;
+        [self setNeedsDisplay];
     }
     
 }
@@ -172,6 +184,11 @@
     return _limitToNumberOfLines;
 }
 
+-(BOOL)resizeToFitText {
+    
+    return _shouldResizeToFit;
+}
+
 -(MTLabelTextAlignment)textAlignment {
     
     return _textAlignment;
@@ -186,6 +203,7 @@
     
     if (self) {
         
+        _textHeight = 0;
         self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
         self._lineHeight = _font.lineHeight;
         self._textAlignment = MTLabelTextAlignmentLeft;
@@ -202,6 +220,7 @@
     
     if (self) {
         
+        _textHeight = 0;
         self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
         self._lineHeight = _font.lineHeight;
         self._textAlignment = MTLabelTextAlignmentLeft;
@@ -218,6 +237,7 @@
     
     if (self) {
         
+        _textHeight = 0;
         self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
         self._lineHeight = _font.lineHeight;
         self._text = text;
@@ -234,6 +254,7 @@
     
     if (self) {
         
+        _textHeight = 0;
         self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
         self._lineHeight = _font.lineHeight;
         self._text = text;
@@ -262,21 +283,6 @@
 +(id)labelWithText:(NSString *)text {
     
     return [[[MTLabel alloc] initWithText:text] autorelease];
-    
-}
-
-
-#pragma mark - Resizing
-
--(void)resizeToFitText {
-    
-    CGSize expectedTextSize = [_text sizeWithFont:_font 
-                                constrainedToSize:CGSizeMake(self.bounds.size.width, 1000000)];
-    
-    [self setFrame:CGRectMake(self.frame.origin.x, 
-                              self.frame.origin.y, 
-                              self.frame.size.width, 
-                              expectedTextSize.height)];
     
 }
 
@@ -324,6 +330,8 @@
     BOOL shouldDrawAlong = YES;
     int count = 0;
     
+    _textHeight = 0;
+    
     //Start drawing lines until we run out of text
     while (shouldDrawAlong) {
         
@@ -334,9 +342,15 @@
         //Create a new line with from current index to line-break index
         CTLineRef line = CTTypesetterCreateLine(typeSetter, 
                                                 CFRangeMake(currentIndex, lineBreakIndex));
-                
-        if (_textAlignment == MTLabelTextAlignmentJustify) 
-            line = CTLineCreateJustifiedLine(line, 1.0, rect.size.width);
+            
+        //Create a new CTLine if we want to justify the text
+        if (_textAlignment == MTLabelTextAlignmentJustify) {
+           
+            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1.0, rect.size.width);
+            CFRelease(line); line = nil;
+            
+            line = justifiedLine;
+        }
         
         CGFloat x;
         
@@ -382,6 +396,7 @@
         y -= _lineHeight;
         
         currentIndex += lineBreakIndex;
+        _textHeight  += _lineHeight;
         
         
         //Check to see if our index didn't exceed the text, and if should limit to number of lines
@@ -395,6 +410,12 @@
     }
     
     CFRelease(typeSetter);
+    
+    if (_shouldResizeToFit) 
+        [self setFrame:CGRectMake(self.frame.origin.x, 
+                                  self.frame.origin.y, 
+                                  self.frame.size.width, 
+                                  _textHeight)];
     
     //Core Text draws black background, found no other way to make it get my own background.
     [self performSelector:@selector(drawTransparentBackground) 
