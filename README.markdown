@@ -4,7 +4,7 @@
 
 ### Description:
 
-By default, UIKit's UILabel provides many limitations, such as unable to custumize line height attribute or make the text unlimited lines long. This is a simple sublass of UIView which uses CoreText framework to draw text. It's still a work in progress so use it at your own risk.
+By default, UIKit's UILabel provides many limitations, such as unable to customize line height attribute. This is a simple sublass of UIView which uses CoreText framework to draw text. It's still a work in progress so use it at your own risk.
 
 ### Requirements
 
@@ -13,7 +13,6 @@ MTLabel uses CoreText  framework, so add it to your project before using MTLabel
 ### Features:
 
 - Customize line spacing
-- Draw text with unlimited number of lines (UILabel forces you to specify number of lines)
 - You can specify if you want the label to resize itself based on text height
 - Supports almost all features of UILabel
 
