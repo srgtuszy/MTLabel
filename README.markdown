@@ -1,6 +1,7 @@
 ## MTLabel version 0.0.2
 
 ### Author: Michal Tuszynski
+### Contributors: Martin Hwasser
 
 ### Description:
 
