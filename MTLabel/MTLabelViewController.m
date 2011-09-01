@@ -63,6 +63,14 @@
     [label3 setResizeToFitText:YES];
     [self.view addSubview:label3];
 
+    MTLabel *label4 = [MTLabel labelWithFrame:CGRectMake(20, 240 + 20, 250, 60) 
+                                      andText:@"This label is highlighted, has a custom line height, and adjusts font size to fit inside the label."];
+    [label4 setLineHeight:22];
+    [label4 setFont:[UIFont fontWithName:@"Helvetica" size:30]];
+    [label4 setAdjustSizeToFit:YES];
+    [label4 setMinimumFontSize:15];
+    [label4 setFontHighlightColor:[[UIColor orangeColor] colorWithAlphaComponent:0.5]];
+    [self.view addSubview:label4];
 }
 
 
