@@ -18,6 +18,7 @@
 
 #import "MTLabel.h"
 #import <CoreText/CoreText.h>
+#import <QuartzCore/QuartzCore.h>
 
 #define DEFAULT_FONT_SIZE 12
 
@@ -27,15 +28,29 @@
 
 @end
 
+CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
+	CGFloat ascent = 0;
+	CGFloat descent = 0;
+	CGFloat leading = 0;
+	CGFloat width = CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+	CGFloat height = ascent + descent;
+    
+	return CGRectMake(lineOrigin.x,
+					  lineOrigin.y - descent,
+					  width,
+					  height);
+}
 @implementation MTLabel
 
 @synthesize _text;
-@synthesize _lineHeight, _textHeight;
+@synthesize _lineHeight, _textHeight, _minimumFontSize;
 @synthesize _numberOfLines;
 @synthesize _font;
-@synthesize _fontColor;
+@synthesize _fontColor, _fontHighlightColor;
 @synthesize _limitToNumberOfLines, _shouldResizeToFit;
 @synthesize _textAlignment;
+@synthesize delegate;
+@synthesize _adjustSizeToFit;
 
 #pragma mark - Setters
 
@@ -56,7 +71,7 @@
         
         _lineHeight = lineHeight;
         [self setNeedsDisplay];
-        
+
     }
 }
 
@@ -78,7 +93,7 @@
 
 
 -(void)setFont:(UIFont *)font {
-    
+
     if (font != _font) {
         
         if (_font) {
@@ -111,6 +126,16 @@
         [self setNeedsDisplay];
     }
     
+}
+- (void)setFontHighlightColor:(UIColor *)fontHighlightColor {
+    if (fontHighlightColor != _fontHighlightColor) {
+        if (_fontHighlightColor) {
+            [_fontHighlightColor release];
+            _fontHighlightColor = nil;
+        }
+        _fontHighlightColor = [fontHighlightColor retain];
+        [self setNeedsDisplay];
+    }
 }
 
 -(void)setLimitToNumberOfLines:(BOOL)limitToNumberOfLines {
@@ -196,22 +221,21 @@
 
 #pragma mark - Object lifecycle
 
-
+- (void)setup {
+    _textHeight = 0;
+    self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
+    self._lineHeight = _font.lineHeight;
+    self._textAlignment = MTLabelTextAlignmentLeft;      
+    [self setOpaque:NO];
+}
 -(id)init {
     
     self = [super init];
     
     if (self) {
-        
-        _textHeight = 0;
-        self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
-        self._lineHeight = _font.lineHeight;
-        self._textAlignment = MTLabelTextAlignmentLeft;
-        
-    }
-    
+        [self setup];
+    }    
     return self;
-    
 }
 
 -(id)initWithFrame:(CGRect)frame {
@@ -219,16 +243,9 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        
-        _textHeight = 0;
-        self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
-        self._lineHeight = _font.lineHeight;
-        self._textAlignment = MTLabelTextAlignmentLeft;
-        
+        [self setup];
     }
-    
     return self;
-    
 }
 
 - (id)initWithFrame:(CGRect)frame andText:(NSString *)text {
@@ -236,36 +253,29 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        
-        _textHeight = 0;
-        self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
-        self._lineHeight = _font.lineHeight;
+        [self setup];
         self._text = text;
-        self._textAlignment = MTLabelTextAlignmentLeft;
-                
     }
     return self;
 }
-
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
 
 -(id)initWithText:(NSString *)text {
     
     self = [super init];
     
     if (self) {
-        
-        _textHeight = 0;
-        self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
-        self._lineHeight = _font.lineHeight;
+        [self setup];
         self._text = text;
-        self._textAlignment = MTLabelTextAlignmentLeft;
-        
     }
-    
     return self;
-    
 }
-
 
 +(id)label {
 
@@ -295,133 +305,184 @@
     
 }
 
-- (void)drawRect:(CGRect)rect {
-        
+- (CGFloat)textOffsetForLine:(CTLineRef)line inRect:(CGRect)rect {
+    CGFloat x;
+    
+    switch (_textAlignment) {
+            
+        case MTLabelTextAlignmentLeft: {
+            double offset = CTLineGetPenOffsetForFlush(line, 0, rect.size.width);
+            x = offset;
+            break;
+        }
+        case MTLabelTextAlignmentCenter: {
+            double offset = CTLineGetPenOffsetForFlush(line, 0.5, rect.size.width);
+            x = offset;
+            break;
+        }
+        case MTLabelTextAlignmentRight: {
+            
+            double offset = CTLineGetPenOffsetForFlush(line, 2, rect.size.width);
+            x = offset;
+            break;
+        }
+        default:
+            x = 0;
+            break;
+    }
+
+    return x;
+}
+- (void)drawTextInRect:(CGRect)rect inContext:(CGContextRef)context {
+    
+    if (!_text) {
+        return;
+    }
+    
     //Create a CoreText font object with name and size from the UIKit one
     CTFontRef font = CTFontCreateWithName((CFStringRef)_font.fontName , 
                                           _font.pointSize, 
                                           NULL);
     
-    
     //Setup the attributes dictionary with font and color
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 (id)font, (id)kCTFontAttributeName,
-                                _fontColor.CGColor, kCTForegroundColorAttributeName, nil];
+                                _fontColor.CGColor, kCTForegroundColorAttributeName,
+                                nil];
     
     NSAttributedString *attributedString = [[[NSAttributedString alloc] 
-                                            initWithString:_text 
+                                             initWithString:_text 
                                              attributes:attributes] autorelease];
     
     CFRelease(font);
-        
-    //Grab the drawing context and flip it to prevent drawing upside-down
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetTextMatrix(context, CGAffineTransformIdentity);
-    CGContextTranslateCTM(context, 0, self.bounds.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-   
+    
     //Create a TypeSetter object with the attributed text created earlier on
     CTTypesetterRef typeSetter = CTTypesetterCreateWithAttributedString((CFAttributedStringRef)attributedString);
-    CFIndex currentIndex = 0;
     
     //Start drawing from the upper side of view (the context is flipped, so we need to grab the height to do so)
-    CGFloat y = self.bounds.size.height - _lineHeight;
+    CGFloat y = self.bounds.origin.y + self.bounds.size.height - _font.ascender;
     
     BOOL shouldDrawAlong = YES;
     int count = 0;
+    CFIndex currentIndex = 0;
     
     _textHeight = 0;
-    
+
     //Start drawing lines until we run out of text
     while (shouldDrawAlong) {
         
         //Get CoreText to suggest a proper place to place the line break
-        CFIndex lineBreakIndex = CTTypesetterSuggestLineBreak(typeSetter, 
-                                                              currentIndex, 
-                                                              rect.size.width);
+        CFIndex lineLength = CTTypesetterSuggestLineBreak(typeSetter, 
+                                                          currentIndex, 
+                                                          self.bounds.size.width);
+        
         //Create a new line with from current index to line-break index
-        CTLineRef line = CTTypesetterCreateLine(typeSetter, 
-                                                CFRangeMake(currentIndex, lineBreakIndex));
-            
+        CFRange lineRange = CFRangeMake(currentIndex, lineLength);
+        CTLineRef line = CTTypesetterCreateLine(typeSetter, lineRange);
+        
         //Create a new CTLine if we want to justify the text
         if (_textAlignment == MTLabelTextAlignmentJustify) {
-           
-            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1.0, rect.size.width);
+            
+            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1.0, self.bounds.size.width);
             CFRelease(line); line = nil;
             
             line = justifiedLine;
         }
         
-        CGFloat x;
-        
-        switch (_textAlignment) {
+        CGFloat x = [self textOffsetForLine:line inRect:self.bounds];
+                
+        // Draw highlight if color has been set
+        if (_fontHighlightColor != nil) {
+            CGContextSetFillColorWithColor(context, _fontHighlightColor.CGColor);
+            CGRect lineRect = CTLineGetTypographicBoundsAsRect(line, CGPointMake(x, y));// + (self._lineHeight - self._font.pointSize) / 2));
             
-            case MTLabelTextAlignmentLeft: {
-             
-                double offset = CTLineGetPenOffsetForFlush(line, 0, rect.size.width);
-                x = offset;
-                
+            lineRect = CGRectIntegral(lineRect);
+            lineRect = CGRectInset(lineRect, -1, -1);
+            lineRect.origin.y -= 1;
+
+            NSString *substring = [_text substringWithRange:NSMakeRange(lineRange.location, lineRange.length)];
+
+            substring = [substring stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if (0 < [substring length]) {
+
+                CGContextFillRect(context, lineRect);
             }
-                
-                break;
-                
-            case MTLabelTextAlignmentCenter: {
-                
-                double offset = CTLineGetPenOffsetForFlush(line, 0.5, rect.size.width);
-                x = offset;
-            }
-                break;
-                
-            case MTLabelTextAlignmentRight: {
-                
-                double offset = CTLineGetPenOffsetForFlush(line, 2, rect.size.width);
-                x = offset;
-                
-            }
-                                
-                break;
-                
-            default:
-                
-                x = 0;
-                
-                break;
         }
-        
         //Setup the line position
         CGContextSetTextPosition(context, x, y);
-        
         CTLineDraw(line, context);
-        
-        y -= _lineHeight;
-        
-        currentIndex += lineBreakIndex;
-        _textHeight  += _lineHeight;
-        
-        
+                
         //Check to see if our index didn't exceed the text, and if should limit to number of lines
-        if ((currentIndex >= [_text length]) &&
-            !(_limitToNumberOfLines && count < _numberOfLines-1) )        
+        if ((currentIndex + lineLength >= [_text length]) &&
+            !(_limitToNumberOfLines && count < _numberOfLines-1) )    {    
             shouldDrawAlong = NO;
+            
+        }
         
         count++;
         CFRelease(line);
-    
+
+        CGFloat minFontSizeChange = 1;
+        y -= _lineHeight;
+        
+        currentIndex += lineLength;
+        _textHeight  += _lineHeight;
+        
+        if (_adjustSizeToFit && _font.pointSize > _minimumFontSize) {
+
+            if (self.bounds.size.height < _textHeight) {
+                
+                NSString *fontName = _font.fontName;
+                CGFloat pointSize = _font.pointSize;
+                CGFloat lineHeightRatio = self._lineHeight / pointSize;
+                CGFloat newPointSize = pointSize - minFontSizeChange;
+                
+                // Make sure newPointSize is not less than the _minimumFontSize
+                newPointSize = newPointSize < _minimumFontSize ? _minimumFontSize : newPointSize;
+                
+                self._font = [UIFont fontWithName:fontName size:newPointSize];
+                self._lineHeight = roundf(newPointSize * lineHeightRatio);
+
+                CGContextClearRect(context, self.bounds);
+                CFRelease(typeSetter);
+
+                return [self drawTextInRect:self.bounds inContext:context];
+            }
+        }
     }
     
     CFRelease(typeSetter);
+
+}
+- (void)drawRect:(CGRect)rect {
+
+    CGContextRef context = UIGraphicsGetCurrentContext();    
+
+    //Grab the drawing context and flip it to prevent drawing upside-down
+    CGContextSetTextMatrix(context, CGAffineTransformIdentity);
+    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
     
-    if (_shouldResizeToFit) 
+    CGContextSaveGState(context);
+
+    [self drawTextInRect:rect inContext:context];
+    
+    
+    if (_shouldResizeToFit && self.frame.size.height < _textHeight) {
+        
         [self setFrame:CGRectMake(self.frame.origin.x, 
                                   self.frame.origin.y, 
                                   self.frame.size.width, 
                                   _textHeight)];
-    
-    //Core Text draws black background, found no other way to make it get my own background.
-    [self performSelector:@selector(drawTransparentBackground) 
-               withObject:nil 
-               afterDelay:0.01];
-
+        
+        // Notify delegate that we did change frame
+        [delegate labelDidChangeFrame:self.frame];
+        
+        // Ugly hack to avoid content being stretched
+        [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.0001];
+    }
+    CGContextRestoreGState(context);
+    [super drawRect:self.bounds];
 } 
 
 
@@ -431,6 +492,7 @@
     
     [_text release]; _text = nil;
     [_fontColor release]; _fontColor = nil;
+    [_fontHighlightColor release], _fontHighlightColor = nil;
     [_font release]; _font = nil;
     
     [super dealloc];
