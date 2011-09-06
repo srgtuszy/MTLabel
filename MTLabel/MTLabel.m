@@ -226,6 +226,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
     self._lineHeight = _font.lineHeight;
     self._textAlignment = MTLabelTextAlignmentLeft;      
+    self.contentMode = UIViewContentModeRedraw;
     [self setOpaque:NO];
 }
 -(id)init {
@@ -478,8 +479,8 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
         // Notify delegate that we did change frame
         [delegate labelDidChangeFrame:self.frame];
         
-        // Ugly hack to avoid content being stretched
-        [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.0001];
+        // Redraw in the new bounds
+        [self setNeedsDisplayInRect:self.bounds];
     }
     CGContextRestoreGState(context);
     [super drawRect:self.bounds];
