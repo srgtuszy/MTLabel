@@ -22,13 +22,13 @@
 
 #define DEFAULT_FONT_SIZE 12
 
-@interface MTLabel ()
+@interface MTLabel () 
 
 -(void)drawTransparentBackground;
 
 @end
 
-CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
+CGRect CTLineGetTypographicBoundsAsARect(CTLineRef line, CGPoint lineOrigin) {
 	CGFloat ascent = 0;
 	CGFloat descent = 0;
 	CGFloat leading = 0;
@@ -51,7 +51,6 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 @synthesize _textAlignment;
 @synthesize delegate;
 @synthesize _adjustSizeToFit;
-
 #pragma mark - Setters
 
 -(void)setNumberOfLines:(int)numberOfLines {
@@ -85,6 +84,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
             _text = nil;
         }
         
+        //_text = [[text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] retain];
         _text = [text retain];
         [self setNeedsDisplay];
 
@@ -156,6 +156,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     if (_shouldResizeToFit != resizeToFitText) {
         
         _shouldResizeToFit = resizeToFitText;
+        self.clipsToBounds = NO;
         [self setNeedsDisplay];
     }
     
@@ -226,6 +227,8 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
     self._lineHeight = _font.lineHeight;
     self._textAlignment = MTLabelTextAlignmentLeft;      
+    self.contentMode = UIViewContentModeRedraw;
+    self.contentStretch = CGRectMake(1, 1, 0, 0);
     [self setOpaque:NO];
 }
 -(id)init {
@@ -333,15 +336,17 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 
     return x;
 }
-- (void)drawTextInRect:(CGRect)rect inContext:(CGContextRef)context {
+- (void)drawTextInRect:(CGRect)rect withFont:(UIFont *)aFont lineHeight:(CGFloat)lineHeight inContext:(CGContextRef)context {
     
     if (!_text) {
         return;
     }
     
+    CGContextClearRect(context, rect);
+    
     //Create a CoreText font object with name and size from the UIKit one
-    CTFontRef font = CTFontCreateWithName((CFStringRef)_font.fontName , 
-                                          _font.pointSize, 
+    CTFontRef font = CTFontCreateWithName((CFStringRef)aFont.fontName , 
+                                          aFont.pointSize, 
                                           NULL);
     
     //Setup the attributes dictionary with font and color
@@ -360,7 +365,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     CTTypesetterRef typeSetter = CTTypesetterCreateWithAttributedString((CFAttributedStringRef)attributedString);
     
     //Start drawing from the upper side of view (the context is flipped, so we need to grab the height to do so)
-    CGFloat y = self.bounds.origin.y + self.bounds.size.height - _font.ascender;
+    CGFloat y = rect.origin.y + rect.size.height - aFont.ascender;
     
     BOOL shouldDrawAlong = YES;
     int count = 0;
@@ -374,7 +379,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
         //Get CoreText to suggest a proper place to place the line break
         CFIndex lineLength = CTTypesetterSuggestLineBreak(typeSetter, 
                                                           currentIndex, 
-                                                          self.bounds.size.width);
+                                                          rect.size.width);
         
         //Create a new line with from current index to line-break index
         CFRange lineRange = CFRangeMake(currentIndex, lineLength);
@@ -383,18 +388,18 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
         //Create a new CTLine if we want to justify the text
         if (_textAlignment == MTLabelTextAlignmentJustify) {
             
-            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1.0, self.bounds.size.width);
+            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1.0, rect.size.width);
             CFRelease(line); line = nil;
             
             line = justifiedLine;
         }
         
-        CGFloat x = [self textOffsetForLine:line inRect:self.bounds];
+        CGFloat x = [self textOffsetForLine:line inRect:rect];
                 
         // Draw highlight if color has been set
         if (_fontHighlightColor != nil) {
             CGContextSetFillColorWithColor(context, _fontHighlightColor.CGColor);
-            CGRect lineRect = CTLineGetTypographicBoundsAsRect(line, CGPointMake(x, y));// + (self._lineHeight - self._font.pointSize) / 2));
+            CGRect lineRect = CTLineGetTypographicBoundsAsARect(line, CGPointMake(x, y));// + (self._lineHeight - self._font.pointSize) / 2));
             
             lineRect = CGRectIntegral(lineRect);
             lineRect = CGRectInset(lineRect, -1, -1);
@@ -423,37 +428,41 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
         CFRelease(line);
 
         CGFloat minFontSizeChange = 1;
-        y -= _lineHeight;
+        y -= lineHeight;
         
         currentIndex += lineLength;
-        _textHeight  += _lineHeight;
-        
-        if (_adjustSizeToFit && _font.pointSize > _minimumFontSize) {
-
-            if (self.bounds.size.height < _textHeight) {
+        _textHeight  += lineHeight;
                 
-                NSString *fontName = _font.fontName;
-                CGFloat pointSize = _font.pointSize;
-                CGFloat lineHeightRatio = self._lineHeight / pointSize;
+        if (_adjustSizeToFit && aFont.pointSize > _minimumFontSize) {
+
+            if (rect.size.height < _textHeight) {
+                
+                NSString *fontName = aFont.fontName;
+                CGFloat pointSize = aFont.pointSize;
+                CGFloat lineHeightRatio = lineHeight / pointSize;
                 CGFloat newPointSize = pointSize - minFontSizeChange;
                 
                 // Make sure newPointSize is not less than the _minimumFontSize
                 newPointSize = newPointSize < _minimumFontSize ? _minimumFontSize : newPointSize;
                 
-                self._font = [UIFont fontWithName:fontName size:newPointSize];
-                self._lineHeight = roundf(newPointSize * lineHeightRatio);
+                UIFont *newFont = [UIFont fontWithName:fontName size:newPointSize];
+                CGFloat newLineHeight = roundf(newPointSize * lineHeightRatio);
 
-                CGContextClearRect(context, self.bounds);
+                self._font = newFont;
+                self._lineHeight = newLineHeight;
+                
+                CGContextClearRect(context, rect);
                 CFRelease(typeSetter);
 
-                return [self drawTextInRect:self.bounds inContext:context];
+                return [self drawTextInRect:rect withFont:newFont lineHeight:newLineHeight inContext:context];
             }
-        }
+        } 
     }
     
     CFRelease(typeSetter);
 
 }
+
 - (void)drawRect:(CGRect)rect {
 
     CGContextRef context = UIGraphicsGetCurrentContext();    
@@ -464,25 +473,39 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     CGContextScaleCTM(context, 1.0, -1.0);
     
     CGContextSaveGState(context);
+    
+    [self drawTextInRect:rect withFont:self._font lineHeight:self._lineHeight inContext:context];
 
-    [self drawTextInRect:rect inContext:context];
-    
-    
-    if (_shouldResizeToFit && self.frame.size.height < _textHeight) {
-        
-        [self setFrame:CGRectMake(self.frame.origin.x, 
-                                  self.frame.origin.y, 
-                                  self.frame.size.width, 
-                                  _textHeight)];
+    if (_shouldResizeToFit && rect.size.height < _textHeight) {
+
+
+        CGRect newFrame = CGRectMake(self.frame.origin.x, 
+                                     self.frame.origin.y, 
+                                     self.frame.size.width, 
+                                     _textHeight);
+        [self setFrame:newFrame];
         
         // Notify delegate that we did change frame
         [delegate labelDidChangeFrame:self.frame];
         
-        // Ugly hack to avoid content being stretched
-        [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.0001];
+        // Redraw in the new bounds
+        //[self setNeedsDisplayInRect:newFrame];
+        //[self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.000001];
+        
+        CGRect newRect = rect;
+        newRect.size.height = _textHeight;
+        CGContextClearRect(context, newRect);
+
+        CGContextRestoreGState(context);
+        //[self drawTextInRect:newRect withFont:self._font lineHeight:self._lineHeight inContext:context];
+        [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.000001];
+        //[self drawRect:newRect];
+
+    } else {
+        CGContextRestoreGState(context);
+        
+        [super drawRect:rect];
     }
-    CGContextRestoreGState(context);
-    [super drawRect:self.bounds];
 } 
 
 
@@ -494,7 +517,6 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     [_fontColor release]; _fontColor = nil;
     [_fontHighlightColor release], _fontHighlightColor = nil;
     [_font release]; _font = nil;
-    
     [super dealloc];
 }
 
