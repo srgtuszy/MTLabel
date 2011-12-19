@@ -61,6 +61,7 @@ typedef enum {
 @property (nonatomic, assign) id<MTLabelDelegate> delegate;
 @property (nonatomic, readwrite, setter = setAdjustSizeToFit:, getter = adjustSizeToFit) BOOL _adjustSizeToFit;
 
+@property (nonatomic, readwrite) CGFloat shadowOffset;
 
 -(id)initWithFrame:(CGRect)frame andText:(NSString *)text;
 -(id)initWithText:(NSString *)text;
