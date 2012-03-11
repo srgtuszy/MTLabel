@@ -37,7 +37,7 @@ typedef enum {
     CGFloat _lineHeight;
     CGFloat _minimumFontSize;
     NSString *_text;
-    UIColor *_fontColor, *_highlightColor;
+    UIColor *_fontColor, *_highlightColor, *_shadowColor;
     UIFont *_font;
     BOOL _limitToNumberOfLines;
     BOOL _shouldResizeToFit;
@@ -53,6 +53,7 @@ typedef enum {
 @property (nonatomic, readwrite, setter = setMinimumFontSize:, getter = minimumFontSize) CGFloat _minimumFontSize;
 @property (nonatomic, retain, setter = setText:, getter = text) NSString *_text;
 @property (nonatomic, retain, setter = setFontColor:, getter = fontColor) UIColor *_fontColor;
+@property (nonatomic, retain, setter = setShadowColor:, getter = shadowColor) UIColor *_shadowColor;
 @property (nonatomic, retain, setter = setFontHighlightColor:, getter = fontHighlightColor) UIColor *_fontHighlightColor;
 @property (nonatomic, retain, setter = setFont:, getter = font) UIFont *_font;
 @property (nonatomic, readwrite, setter = setLimitToNumberOfLines:, getter = limitToNumberOfLines) BOOL _limitToNumberOfLines;
@@ -61,7 +62,8 @@ typedef enum {
 @property (nonatomic, assign) id<MTLabelDelegate> delegate;
 @property (nonatomic, readwrite, setter = setAdjustSizeToFit:, getter = adjustSizeToFit) BOOL _adjustSizeToFit;
 
-@property (nonatomic, readwrite) CGFloat shadowOffset;
+@property (nonatomic, readwrite) CGPoint shadowOffset;
+@property (nonatomic, readwrite) CGFloat shadowBlur;
 
 -(id)initWithFrame:(CGRect)frame andText:(NSString *)text;
 -(id)initWithText:(NSString *)text;
@@ -73,6 +75,7 @@ typedef enum {
 -(void)setNumberOfLines:(int)numberOfLines;
 -(void)setFont:(UIFont *)font;
 -(void)setFontColor:(UIColor *)fontColor;
+-(void)setShadowColor:(UIColor *)shadowColor;
 -(void)setLimitToNumberOfLines:(BOOL)limitToNumberOfLines;
 -(void)setTextAlignment:(MTLabelTextAlignment)textAlignment;
 -(void)setResizeToFitText:(BOOL)resizeToFitText;

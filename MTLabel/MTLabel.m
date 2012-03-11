@@ -25,6 +25,7 @@
 @interface MTLabel ()
 
 -(void)drawTransparentBackground;
+CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin);
 
 @end
 
@@ -40,18 +41,20 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 					  width,
 					  height);
 }
+
 @implementation MTLabel
 
 @synthesize _text;
 @synthesize _lineHeight, _textHeight, _minimumFontSize;
 @synthesize _numberOfLines;
 @synthesize _font;
-@synthesize _fontColor, _fontHighlightColor;
+@synthesize _fontColor, _fontHighlightColor, _shadowColor;
 @synthesize _limitToNumberOfLines, _shouldResizeToFit;
 @synthesize _textAlignment;
 @synthesize delegate;
 @synthesize _adjustSizeToFit;
 @synthesize shadowOffset;
+@synthesize shadowBlur;
 
 
 #pragma mark - Setters
@@ -129,6 +132,23 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     }
     
 }
+
+-(void)setShadowColor:(UIColor *)shadowColor
+{
+    if (shadowColor != _shadowColor) {
+        
+        if (_shadowColor) {
+            
+            [_shadowColor release];
+            _shadowColor = nil;
+            
+        }
+        
+        _shadowColor = [shadowColor retain];
+        [self setNeedsDisplay];
+    }
+}
+
 - (void)setFontHighlightColor:(UIColor *)fontHighlightColor {
     if (fontHighlightColor != _fontHighlightColor) {
         if (_fontHighlightColor) {
@@ -204,6 +224,11 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 -(UIColor *)fontColor {
     
     return _fontColor;
+}
+
+-(UIColor *)shadowColor {
+    
+    return _shadowColor;
 }
 
 -(BOOL)limitToNumberOfLines {
@@ -467,9 +492,11 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     
     CGContextSaveGState(context);
 
-    CGColorRef colorRef = CGColorCreate(CGColorSpaceCreateDeviceRGB(), CGColorGetComponents([_fontColor CGColor]));
-    CGContextSetShadowWithColor(context, CGSizeMake(self.shadowOffset, self.shadowOffset), 5, colorRef);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorRef colorRef = CGColorCreate(colorSpace, CGColorGetComponents([_shadowColor CGColor]));
+    CGContextSetShadowWithColor(context, CGSizeMake(self.shadowOffset.x, self.shadowOffset.y), self.shadowBlur, colorRef);
     CGColorRelease(colorRef);
+    CGColorSpaceRelease(colorSpace);
 	
     [self drawTextInRect:rect inContext:context];
     
