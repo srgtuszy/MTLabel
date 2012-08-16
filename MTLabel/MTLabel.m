@@ -177,7 +177,10 @@ if (font != _font) {
     _textHeight = 0;
     self._font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
     self._lineHeight = _font.lineHeight;
-    self._textAlignment = MTLabelTextAlignmentLeft;      
+    self._textAlignment = MTLabelTextAlignmentLeft;
+    self.contentMode = UIViewContentModeRedraw;
+    self.contentStretch = CGRectMake(1, 1, 0, 0);
+    self.clipsToBounds = NO;
     [self setOpaque:NO];
 }
 - (id)init {
@@ -333,7 +336,7 @@ if (font != _font) {
             CFAttributedStringRef truncationString = CFAttributedStringCreate(NULL, CFSTR("\u2026"), (__bridge CFDictionaryRef)attributes);
             CTLineRef truncationToken = CTLineCreateWithAttributedString(truncationString);
             
-            CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.bounds.size.width*.8, kCTLineTruncationEnd, truncationToken);
+            CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.bounds.size.width*.85, kCTLineTruncationEnd, truncationToken);
             CFRelease(line); line = nil;
             
             line = truncatedLine;
@@ -405,7 +408,6 @@ if (font != _font) {
     }
     
     CFRelease(typeSetter);
-
 }
 - (void)drawRect:(CGRect)rect {
 
@@ -431,11 +433,11 @@ if (font != _font) {
                                   self.frame.size.width, 
                                   _textHeight)];
         
-        // Notify delegate that we did change frame
         [delegate labelDidChangeFrame:self.frame];
         
         // Ugly hack to avoid content being stretched
-//        [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.0001];
+        [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.0001];
+        
     }
     CGContextRestoreGState(context);
     [super drawRect:self.bounds];
