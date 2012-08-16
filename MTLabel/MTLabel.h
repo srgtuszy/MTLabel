@@ -39,7 +39,7 @@ typedef enum {
 @property (nonatomic, readonly) CGFloat _textHeight;
 @property (nonatomic, readwrite, setter = setMinimumFontSize:, getter = minimumFontSize) CGFloat _minimumFontSize;
 @property (nonatomic, retain, setter = setText:, getter = text) NSString *_text;
-@property (nonatomic, retain, setter = setFontColor:, getter = fontColor) UIColor *_fontColor;
+@property (nonatomic, retain, setter = setTextColor:, getter = fontColor) UIColor *_textColor;
 @property (nonatomic, retain, setter = setFontHighlightColor:, getter = fontHighlightColor) UIColor *_fontHighlightColor;
 @property (nonatomic, retain, setter = setFont:, getter = font) UIFont *_font;
 @property (nonatomic, readwrite, setter = setLimitToNumberOfLines:, getter = limitToNumberOfLines) BOOL _limitToNumberOfLines;

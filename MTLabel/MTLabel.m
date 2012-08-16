@@ -46,7 +46,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 @synthesize _lineHeight, _textHeight, _minimumFontSize;
 @synthesize _numberOfLines, _maxNumberOfLines;
 @synthesize _font;
-@synthesize _fontColor, _fontHighlightColor;
+@synthesize _textColor, _fontHighlightColor;
 @synthesize _limitToNumberOfLines, _shouldResizeToFit;
 @synthesize _textAlignment;
 @synthesize delegate;
@@ -88,8 +88,8 @@ if (font != _font) {
 
 
 - (void)setFontColor:(UIColor *)fontColor {
-    if (fontColor != _fontColor) {
-        _fontColor = fontColor;
+    if (fontColor != _textColor) {
+        _textColor = fontColor;
         [self setNeedsDisplay];
     }
     
@@ -153,7 +153,7 @@ if (font != _font) {
 
 -(UIColor *)fontColor {
     
-    return _fontColor;
+    return _textColor;
 }
 
 -(BOOL)limitToNumberOfLines {
@@ -299,7 +299,7 @@ if (font != _font) {
     
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 (__bridge id)font, (id)kCTFontAttributeName,
-                                _fontColor.CGColor, kCTForegroundColorAttributeName,
+                                _textColor.CGColor, kCTForegroundColorAttributeName,
                                 nil];
     
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:_text attributes:attributes];
@@ -419,10 +419,6 @@ if (font != _font) {
     CGContextScaleCTM(context, 1.0, -1.0);
     
     CGContextSaveGState(context);
-
-    CGColorRef colorRef = CGColorCreate(CGColorSpaceCreateDeviceRGB(), CGColorGetComponents([_fontColor CGColor]));
-    CGContextSetShadowWithColor(context, CGSizeMake(self.shadowOffset, self.shadowOffset), 5, colorRef);
-    CGColorRelease(colorRef);
 	
     [self drawTextInRect:rect inContext:context];
     
