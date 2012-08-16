@@ -31,23 +31,10 @@ typedef enum {
 } MTLabelTextAlignment;
 
 
-@interface MTLabel : UIView {
-    
-    int _numberOfLines;
-    CGFloat _lineHeight;
-    CGFloat _minimumFontSize;
-    NSString *_text;
-    UIColor *_fontColor, *_highlightColor;
-    UIFont *_font;
-    BOOL _limitToNumberOfLines;
-    BOOL _shouldResizeToFit;
-    MTLabelTextAlignment _textAlignment;
-    id<MTLabelDelegate> delegate;
-    BOOL adjustSizeToFit;
-    
-}
+@interface MTLabel : UIView
 
 @property (nonatomic, readwrite, setter = setNumberOfLines:, getter = numberOfLines) int _numberOfLines;
+@property (nonatomic, readwrite, setter = setMaxNumberOfLines:, getter = numberOfLines) int _maxNumberOfLines;
 @property (nonatomic, readwrite, setter = setLineHeight:, getter = lineHeight) CGFloat _lineHeight;
 @property (nonatomic, readonly) CGFloat _textHeight;
 @property (nonatomic, readwrite, setter = setMinimumFontSize:, getter = minimumFontSize) CGFloat _minimumFontSize;
@@ -58,7 +45,7 @@ typedef enum {
 @property (nonatomic, readwrite, setter = setLimitToNumberOfLines:, getter = limitToNumberOfLines) BOOL _limitToNumberOfLines;
 @property (nonatomic, readwrite, setter = setResizeToFitText:, getter = resizeToFitText) BOOL _shouldResizeToFit;
 @property (nonatomic, readwrite, setter = setTextAlignment:, getter = textAlignment) MTLabelTextAlignment _textAlignment;
-@property (nonatomic, assign) id<MTLabelDelegate> delegate;
+@property (nonatomic, weak) id<MTLabelDelegate> delegate;
 @property (nonatomic, readwrite, setter = setAdjustSizeToFit:, getter = adjustSizeToFit) BOOL _adjustSizeToFit;
 
 @property (nonatomic, readwrite) CGFloat shadowOffset;
