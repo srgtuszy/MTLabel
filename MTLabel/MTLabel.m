@@ -439,7 +439,6 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     [super drawRect:self.bounds];
 } 
 
-
 #pragma mark - Memory managment
 
 - (void)dealloc {
