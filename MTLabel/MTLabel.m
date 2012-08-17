@@ -79,7 +79,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 
 
 - (void)setFont:(UIFont *)font {
-if (font != _font) {
+    if (font != _font) {
         _font = font;
         self._lineHeight = _font.lineHeight;
         [self setNeedsDisplay];
