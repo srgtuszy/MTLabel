@@ -432,7 +432,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
         [delegate labelDidChangeFrame:self.frame];
         
         // Ugly hack to avoid content being stretched
-        [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.0001];
+        // [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.0001];
         
     }
     CGContextRestoreGState(context);
