@@ -17,6 +17,9 @@
 //  limitations under the License.
 
 #import <UIKit/UIKit.h>
+
+@class HAWLabel;
+
 @protocol MTLabelDelegate
 - (void)labelDidChangeFrame:(CGRect)frame;
 @end
@@ -72,5 +75,10 @@ typedef enum {
 -(BOOL)resizeToFitText;
 -(MTLabelTextAlignment)textAlignment;
 
+- (CGFloat)labelBottomMargin;
+- (CGFloat)labelTopMargin;
+- (CGFloat)positionBelowLabel:(HAWLabel *)label offset:(CGSize)offset;
+- (CGFloat)positionBelowView:(UIView *)view offset:(CGSize)offset;
+- (CGFloat)positionBelowMTLabel:(MTLabel *)label offset:(CGSize)offset;
 
 @end

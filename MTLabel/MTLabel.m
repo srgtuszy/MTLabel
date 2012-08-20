@@ -17,6 +17,8 @@
 //  limitations under the License.
 
 #import "MTLabel.h"
+#import "HAWLabel.h"
+#import "UILabel+HAWAdditions.h"
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -164,6 +166,11 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 -(BOOL)resizeToFitText {
     
     return _shouldResizeToFit;
+}
+
+- (CGSize)sizeThatFits:(CGSize)size
+{
+    return CGSizeMake(self.frame.size.width, _textHeight);
 }
 
 -(MTLabelTextAlignment)textAlignment {
@@ -410,7 +417,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     CFRelease(typeSetter);
 }
 - (void)drawRect:(CGRect)rect {
-
+    NSLog(@"Drawn: %@", self.text);
     CGContextRef context = UIGraphicsGetCurrentContext();    
 
     //Grab the drawing context and flip it to prevent drawing upside-down
@@ -427,13 +434,11 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
         [self setFrame:CGRectMake(self.frame.origin.x, 
                                   self.frame.origin.y, 
                                   self.frame.size.width, 
-                                  _textHeight)];
+                                  roundf(_textHeight))];
         
-        [delegate labelDidChangeFrame:self.frame];
-        
-        // Ugly hack to avoid content being stretched
-        // [self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.0001];
-        
+        dispatch_async(dispatch_get_current_queue(), ^{
+            [self setNeedsDisplay];
+        });
     }
     CGContextRestoreGState(context);
     [super drawRect:self.bounds];
@@ -443,6 +448,52 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 
 - (void)dealloc {
     
+}
+
+#pragma mark - Fine positioning
+
+- (CGFloat)labelBottomMargin
+{
+    int lines = self.bounds.size.height / self.font.lineHeight;
+    if (lines > 1)
+        return -1.0 * self.font.descender + (self.font.lineHeight - self.font.pointSize);
+    else
+        return self.bounds.size.height - self.font.ascender;
+}
+
+- (CGFloat)labelTopMargin
+{
+    return self.font.ascender - self.font.capHeight;
+}
+
+- (CGFloat)positionBelowLabel:(HAWLabel *)label offset:(CGSize)offset
+{
+    CGRect fromRect = label.frame;
+    CGRect toRect = self.bounds;
+    toRect.origin.x = fromRect.origin.x + offset.width;
+    toRect.origin.y = roundf(fromRect.origin.y + fromRect.size.height - label.labelBottomMargin + offset.height - self.labelTopMargin);
+    self.frame = toRect;
+    return roundf(CGRectGetMaxY(toRect) - self.labelBottomMargin);
+}
+
+- (CGFloat)positionBelowView:(UIView *)view offset:(CGSize)offset
+{
+    CGRect fromRect = view.frame;
+    CGRect toRect = self.bounds;
+    toRect.origin.x = fromRect.origin.x + offset.width;
+    toRect.origin.y = roundf(fromRect.origin.y + fromRect.size.height + offset.height - self.labelTopMargin);
+    self.frame = toRect;
+    return roundf(CGRectGetMaxY(toRect) - self.labelBottomMargin);
+}
+
+- (CGFloat)positionBelowMTLabel:(MTLabel *)label offset:(CGSize)offset
+{
+    CGRect fromRect = label.frame;
+    CGRect toRect = self.bounds;
+    toRect.origin.x = fromRect.origin.x + offset.width;
+    toRect.origin.y = roundf(fromRect.origin.y + fromRect.size.height - label.labelBottomMargin + offset.height - self.labelTopMargin);
+    self.frame = toRect;
+    return roundf(CGRectGetMaxY(toRect) - self.labelBottomMargin);
 }
 
 @end
