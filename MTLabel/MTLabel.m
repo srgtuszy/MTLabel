@@ -168,11 +168,6 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     return _shouldResizeToFit;
 }
 
-- (CGSize)sizeThatFits:(CGSize)size
-{
-    return CGSizeMake(self.frame.size.width, _textHeight);
-}
-
 -(MTLabelTextAlignment)textAlignment {
     
     return _textAlignment;
@@ -295,6 +290,42 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 
     return x;
 }
+
+- (CGSize)sizeThatFits:(CGSize)size
+{
+    CGFloat height = 0.0;
+    BOOL hasMoreText = YES;
+    
+    CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)_font.fontName, _font.pointSize, NULL);
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                (__bridge id)font, (id)kCTFontAttributeName,
+                                _textColor.CGColor, kCTForegroundColorAttributeName,
+                                nil];
+    
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:_text attributes:attributes];
+    CFRelease(font);
+    
+    CTTypesetterRef typeSetter = CTTypesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attributedString);
+    CFIndex currentIndex = 0;
+    int lineCount = 0;
+    
+    while (hasMoreText) {
+        CFIndex lineLength = CTTypesetterSuggestLineBreak(typeSetter,
+                                                          currentIndex,
+                                                          self.bounds.size.width);
+        currentIndex += lineLength;
+        height += _lineHeight;
+        lineCount++;
+        
+        if (currentIndex >= [_text length] || (_limitToNumberOfLines && lineCount >= _maxNumberOfLines)) {
+            hasMoreText = NO;
+        }
+
+    }
+    
+    return CGSizeMake(self.bounds.size.width, height);
+}
+
 - (void)drawTextInRect:(CGRect)rect inContext:(CGContextRef)context {
     
     if (!_text) {
@@ -493,6 +524,11 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     toRect.origin.y = roundf(fromRect.origin.y + fromRect.size.height - label.labelBottomMargin + offset.height - self.labelTopMargin);
     self.frame = toRect;
     return roundf(CGRectGetMaxY(toRect) - self.labelBottomMargin);
+}
+
+- (CGFloat)layoutHeight
+{
+    return roundf(self.frame.size.height - self.labelBottomMargin - self.labelTopMargin);
 }
 
 @end
