@@ -293,6 +293,9 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
+    if (_text == nil) {
+        return CGSizeMake(self.bounds.size.width, 0.0);
+    }
     CGFloat height = 0.0;
     BOOL hasMoreText = YES;
     
