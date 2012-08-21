@@ -528,7 +528,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 
 - (CGFloat)layoutHeight
 {
-    return self.frame.size.height - self.labelBottomMargin - self.labelTopMargin;
+    return roundf(self.frame.size.height - self.labelBottomMargin - self.labelTopMargin);
 }
 
 @end
