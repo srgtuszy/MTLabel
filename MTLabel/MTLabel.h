@@ -80,5 +80,6 @@ typedef enum {
 - (CGFloat)positionBelowLabel:(HAWLabel *)label offset:(CGSize)offset;
 - (CGFloat)positionBelowView:(UIView *)view offset:(CGSize)offset;
 - (CGFloat)positionBelowMTLabel:(MTLabel *)label offset:(CGSize)offset;
+- (CGFloat)layoutHeight;
 
 @end

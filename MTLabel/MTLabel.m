@@ -448,7 +448,6 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     CFRelease(typeSetter);
 }
 - (void)drawRect:(CGRect)rect {
-    NSLog(@"Drawn: %@", self.text);
     CGContextRef context = UIGraphicsGetCurrentContext();    
 
     //Grab the drawing context and flip it to prevent drawing upside-down
@@ -525,6 +524,11 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     toRect.origin.y = roundf(fromRect.origin.y + fromRect.size.height - label.labelBottomMargin + offset.height - self.labelTopMargin);
     self.frame = toRect;
     return roundf(CGRectGetMaxY(toRect) - self.labelBottomMargin);
+}
+
+- (CGFloat)layoutHeight
+{
+    return self.frame.size.height - self.labelBottomMargin - self.labelTopMargin;
 }
 
 @end
