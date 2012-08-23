@@ -106,7 +106,9 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
         }
         
         _font = [font retain];
-        self._lineHeight = _font.lineHeight;
+        if (!self._lineHeight) {
+            self._lineHeight = _font.lineHeight;
+        }
         [self setNeedsDisplay];
         
     }
