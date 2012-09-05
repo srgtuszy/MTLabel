@@ -376,6 +376,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
             
             CFAttributedStringRef truncationString = CFAttributedStringCreate(NULL, CFSTR("\u2026"), (__bridge CFDictionaryRef)attributes);
             CTLineRef truncationToken = CTLineCreateWithAttributedString(truncationString);
+            CFRelease(truncationString);
             
             CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.bounds.size.width*.85, kCTLineTruncationEnd, truncationToken);
             CFRelease(line); line = nil;
