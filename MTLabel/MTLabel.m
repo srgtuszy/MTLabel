@@ -324,6 +324,9 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
             hasMoreText = NO;
         }
 
+        if (_limitToNumberOfLines && lineCount >= _maxNumberOfLines) {
+            NSLog(@"BOOM ADD... - %@", _text);
+        }
     }
     
     return CGSizeMake(self.bounds.size.width, height);
@@ -378,7 +381,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
             CTLineRef truncationToken = CTLineCreateWithAttributedString(truncationString);
             CFRelease(truncationString);
             
-            CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.bounds.size.width*.85, kCTLineTruncationEnd, truncationToken);
+            CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.bounds.size.width-40, kCTLineTruncationEnd, truncationToken);
             CFRelease(line); line = nil;
             
             line = truncatedLine;
