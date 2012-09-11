@@ -323,10 +323,6 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
         if (currentIndex >= [_text length] || (_limitToNumberOfLines && lineCount >= _maxNumberOfLines)) {
             hasMoreText = NO;
         }
-
-        if (_limitToNumberOfLines && lineCount >= _maxNumberOfLines) {
-            NSLog(@"BOOM ADD... - %@", _text);
-        }
     }
     
     return CGSizeMake(self.bounds.size.width, height);
