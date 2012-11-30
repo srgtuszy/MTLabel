@@ -325,6 +325,8 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
         }
     }
     
+    CFRelease(typeSetter);
+    
     return CGSizeMake(self.bounds.size.width, height);
 }
 
