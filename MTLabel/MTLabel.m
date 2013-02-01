@@ -380,6 +380,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
             CFRelease(truncationString);
             
             CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.bounds.size.width-40, kCTLineTruncationEnd, truncationToken);
+            CFRelease(truncationToken);
             CFRelease(line); line = nil;
             
             line = truncatedLine;
