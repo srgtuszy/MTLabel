@@ -17,8 +17,6 @@
 //  limitations under the License.
 
 #import "MTLabel.h"
-#import "HAWLabel.h"
-#import "UILabel+HAWAdditions.h"
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -83,7 +81,11 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
 - (void)setFont:(UIFont *)font {
     if (font != _font) {
         _font = font;
+      
+      if (self._lineHeight == [UIFont systemFontOfSize:DEFAULT_FONT_SIZE].lineHeight) {
         self._lineHeight = _font.lineHeight;
+
+      }
         [self setNeedsDisplay];
     }
 }
@@ -502,7 +504,7 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     return self.font.ascender - self.font.capHeight;
 }
 
-- (CGFloat)positionBelowLabel:(HAWLabel *)label offset:(CGSize)offset
+- (CGFloat)positionBelowLabel:(MTLabel *)label offset:(CGSize)offset
 {
     CGRect fromRect = label.frame;
     CGRect toRect = self.bounds;

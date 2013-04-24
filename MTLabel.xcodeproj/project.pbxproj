@@ -16,8 +16,9 @@
 		147737E11391B7C200BCB59A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147737DF1391B7C200BCB59A /* MainWindow.xib */; };
 		147737E41391B7C200BCB59A /* MTLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147737E31391B7C200BCB59A /* MTLabelViewController.m */; };
 		147737E71391B7C200BCB59A /* MTLabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147737E51391B7C200BCB59A /* MTLabelViewController.xib */; };
-		147737EF1391B7D400BCB59A /* MTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147737EE1391B7D400BCB59A /* MTLabel.m */; };
+		147737EF1391B7D400BCB59A /* MTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147737EE1391B7D400BCB59A /* MTLabel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		147737F11391B86600BCB59A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 147737F01391B86600BCB59A /* CoreText.framework */; };
+		FA614AF41727F8FC00724B20 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA614AF31727F8FC00724B20 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		147737ED1391B7D400BCB59A /* MTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLabel.h; sourceTree = "<group>"; };
 		147737EE1391B7D400BCB59A /* MTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLabel.m; sourceTree = "<group>"; };
 		147737F01391B86600BCB59A /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		FA614AF31727F8FC00724B20 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		147737BE1391B7C100BCB59A = {
 			isa = PBXGroup;
 			children = (
+				FA614AF31727F8FC00724B20 /* Default-568h@2x.png */,
 				147737D31391B7C100BCB59A /* MTLabel */,
 				147737CC1391B7C100BCB59A /* Frameworks */,
 				147737CA1391B7C100BCB59A /* Products */,
@@ -135,6 +138,9 @@
 /* Begin PBXProject section */
 		147737C01391B7C100BCB59A /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
 			buildConfigurationList = 147737C31391B7C100BCB59A /* Build configuration list for PBXProject "MTLabel" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -160,6 +166,7 @@
 				147737D81391B7C200BCB59A /* InfoPlist.strings in Resources */,
 				147737E11391B7C200BCB59A /* MainWindow.xib in Resources */,
 				147737E71391B7C200BCB59A /* MTLabelViewController.xib in Resources */,
+				FA614AF41727F8FC00724B20 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +254,9 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MTLabel/MTLabel-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "MTLabel/MTLabel-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -260,7 +269,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MTLabel/MTLabel-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "MTLabel/MTLabel-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
