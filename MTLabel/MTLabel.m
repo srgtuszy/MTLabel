@@ -228,7 +228,6 @@ CGRect CTLineGetTypographicBoundsAsARect(CTLineRef line, CGPoint lineOrigin) {
     self._lineHeight = _font.lineHeight;
     self._textAlignment = MTLabelTextAlignmentLeft;      
     self.contentMode = UIViewContentModeRedraw;
-    self.contentStretch = CGRectMake(1, 1, 0, 0);
     [self setOpaque:NO];
 }
 -(id)init {
